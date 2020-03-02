@@ -4,8 +4,8 @@
     <nodeDef id="controller" nls="ctl">
         <editors />
         <sts>
-			<st id="ST" editor="bool" />
-		</sts>
+            <st id="ST" editor="bool" />
+        </sts>
         <cmds>
             <sends>
               <cmd id="DON" />
@@ -20,7 +20,7 @@
             </accepts>
         </cmds>
     </nodeDef>
-	<!-- templatenodeid -->
+    <!-- templatenodeid -->
     <nodeDef id="templatenodeid" nls="tmplnode">
         <editors />
         <sts>
