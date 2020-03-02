@@ -1,6 +1,6 @@
 {
-    "name": "PythonTemplate",
-    "docs": "https://github.com/Einstein42/udi-poly-template-python",
+    "name": "Test1",
+    "docs": "https://github.com/DirkM20/Test1",
     "type": "python3",
     "executable": "template-poly.py",
     "install": "install.sh",
@@ -13,12 +13,11 @@
     "profile_version": "2.0.6",
     "credits": [
         {
-            "title": "mypoly: a NodeServer for Template Integration",
-            "author": "James Milne (Einstein.42)",
-            "version": "2.0.6",
-            "date": "November 8, 2017",
-            "source": "https://github.com/Einstein42/udi-poly-template-python",
-            "license": "https://raw.githubusercontent.com/Einstein42/udi-poly-template-python/master/LICENSE"
+            "title": "test1",
+            "author": "Dirk Mattheis",
+            "version": "2.0.0",
+            "date": "March 2, 2020",
+            "source": "https://github.com/DirkM20/Test1"
         }
     ]
 }
