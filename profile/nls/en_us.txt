@@ -1,5 +1,5 @@
 # controller
-ND-controller-NAME = Template NodeServer Controller
+ND-controller-NAME = UniFi Presence Controller
 CMD-ctl-QUERY"-NAME = Query
 CMD-ctl-DISCOVER-NAME = Re-Discover
 CMD-ctl-UPDATE_PROFILE-NAME = Update Profile
@@ -8,5 +8,5 @@ CMD-ctl-REMOVE_NOTICE_TEST-NAME = Remove Notice Test
 ST-ctl-ST-NAME = NodeServer Online
 
 # mynodetype
-ND-tmplnode-NAME = Template Node
-ST-tmplnode-ST-NAME = Node Status
+ND-unifinode-NAME = UniFi Node
+ST-unifinode-ST-NAME = Node Status

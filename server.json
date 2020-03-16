@@ -1,23 +1,24 @@
 {
-    "name": "UniFi Presence Poly",
-    "docs": "https://github.com/DirkM20/Test1",
+    "name": "UniFi-Presence",
+    "docs": "https://github.com/x",
     "type": "python3",
     "executable": "unifi-presence-poly.py",
     "install": "install.sh",
     "install_cloud": "install_cloud.sh",
-    "description": "uses UniFi controller for presence",
-    "notice": "don't use it, alpha version",
+    "description": "UniFi Presence Node Server",
+    "notice": "Disclaimer",
     "shortPoll": "120",
     "longPoll": "240",
     "testMode": false,
     "profile_version": "2.0.0",
     "credits": [
         {
-            "title": "test1",
+            "title": "Using the UniFi Controller for geofencing",
             "author": "Dirk Mattheis",
             "version": "2.0.0",
-            "date": "March 2, 2020",
-            "source": "https://github.com/DirkM20/Test1"
+            "date": "march 15th, 2020",
+            "source": "https://github.com/xxx",
+            "license": "https://raw.github.com/xxx"
         }
     ]
 }
