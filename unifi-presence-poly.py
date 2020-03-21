@@ -54,6 +54,7 @@ class Controller(polyinterface.Controller):
                 LOGGER.debug(key + " => " + val)
                 nodeaddr = key.replace(':','').lower()
                 self.addNode(UniFiNode(self, self.address, nodeaddr, key))
+                self.setDriver('ST', 0)
         for node in self.nodes:
             self.nodes[node].update()
 
@@ -245,7 +246,7 @@ class UniFiNode(polyinterface.Node):
 
 if __name__ == "__main__":
     try:
-        polyglot = polyinterface.Interface('UniFi Presence Poly')
+        polyglot = polyinterface.Interface('UniFi Presence Controller')
         polyglot.start()
         control = Controller(polyglot)
         control.runForever()
