@@ -35,7 +35,7 @@ class Controller(polyinterface.Controller):
         self.setDriver('ST',1)
 
     def shortPoll(self):
-        LOGGER.debug('Controller.shortPoll')
+        #LOGGER.debug('Controller.shortPoll')
         for node in self.nodes:
            self.nodes[node].update()
         if self.firstRun:
@@ -56,7 +56,7 @@ class Controller(polyinterface.Controller):
         #LOGGER.debug('Controller.discover')
         for key,val in self.polyConfig['customParams'].items():
             if (key.find(':') != -1):
-                LOGGER.debug(key + " => " + val)
+                #LOGGER.debug(key + " => " + val)
                 nodeaddr = key.replace(':','').lower()
                 self.addNode(UniFiNode(self, self.address, nodeaddr, key, val))
 
@@ -198,34 +198,46 @@ class UniFiNode(polyinterface.Node):
     def __init__(self, controller, primary, address, macaddr, name):
         super(UniFiNode, self).__init__(controller, primary, address, name)
         self.macaddr = macaddr
+        self.strength = 0
 
     def start(self):
         self.setOn('DON')
 
     def update(self):
-        LOGGER.debug('contacting UniFi Controller')
+        #LOGGER.debug('contacting UniFi Controller')
         api = Unifi_API(username=uc_user, password=uc_password, baseurl="https://" + uc_ip + ":" + uc_port)
         api.login()
         device_list = (api.list_clients(filters={'mac': self.macaddr}))
         api.logout()
-        LOGGER.debug('locating ' + self.macaddr)
-        hostname = ''
+        #LOGGER.debug('locating ' + self.macaddr)
+        #LOGGER.debug(device_list)
+
+        isOnNetwork = False
         for dict in device_list:
-#            if dict['mac'] == self.macaddr:
-#                hostname = dict['hostname']
-#                LOGGER.debug('hostname = ' + hostname)
             if 'ap_mac' in dict:
-                LOGGER.debug(self.name + ' is on network')
-                self.setOnNetwork('')
-            else:
-                LOGGER.debug(self.name + ' is off network')
-                self.setOffNetwork('')
+                isOnNetwork = True
+            if not 'mac' in dict:
+                isOnNetwork = False
 
-    def setOnNetwork(self, command):
+        if (isOnNetwork == True):
+            LOGGER.debug(self.name + ' is on network')
+            self.setOnNetwork(5)
+        elif (self.strength > 1):
+            LOGGER.debug(self.name + ' missed check-in ' + str(6 - self.strength) + ' times')
+            self.setOnNetwork(self.strength - 1)
+        elif (self.strength <= 1):
+            LOGGER.debug(self.name + ' is off network')
+            self.setOffNetwork()
+
+    def setOnNetwork(self, strength):
         self.setDriver('ST', 1)
-
-    def setOffNetwork(self, command):
+        self.strength = strength
+        self.setDriver('GV0', self.strength)
+        
+    def setOffNetwork(self):
         self.setDriver('ST', 0)
+        self.strength = 0
+        self.setDriver('GV0', self.strength)
 
     def setOn(self, command):
         self.setDriver('ST', 1)
@@ -237,7 +249,7 @@ class UniFiNode(polyinterface.Node):
         self.reportDrivers()
 
     hint = [1,2,3,4]
-    drivers = [{'driver': 'ST', 'value': 0, 'uom': 2}]
+    drivers = [{'driver': 'ST', 'value': 0, 'uom': 2},{'driver': 'GV0', 'value': 0, 'uom': 56}]
     id = 'unifi_node'
     commands = {
                     'DON': setOn, 'DOF': setOff
