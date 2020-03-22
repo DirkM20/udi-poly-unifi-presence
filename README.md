@@ -1,14 +1,9 @@
-# MyNodeServer
+# UniFi-Presence-Poly NodeServer v2
 
-#### Installation
+This is the UniFi-Presence-Poly for the [Universal Devices ISY994i](https://www.universal-devices.com/residential/ISY) [Polyglot interface](http://www.universal-devices.com/developers/polyglot/docs/) with  [Polyglot V2](https://github.com/Einstein42/udi-polyglotv2)
+(c) 2020 Dirk Mattheis
+MIT license.
 
-Here is how you install this poly.
+## Not for production use
 
-#### Requirements
-
-Here is what is required to run this poly.
-
-## Using this Template
-
-To use this template as the start of your nodeserver, just hit the + in the upper
-right corner of github select Import Repository and give the path to this repo as the source.
+This poly is experimental, do not use with your production ISY.

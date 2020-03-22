@@ -8,7 +8,6 @@ import time
 import struct
 import array
 import fcntl
-import os
 from requests import Session
 import json
 import re
@@ -19,10 +18,12 @@ urllib3.disable_warnings()
 LOGGER = polyinterface.LOGGER
 
 class Controller(polyinterface.Controller):
+
     def __init__(self, polyglot):
         super(Controller, self).__init__(polyglot)
         self.name = 'UniFi Presence Controller'
         self.poly.onConfig(self.process_config)
+        self.firstRun = True
 
     def start(self):
         # This grabs the server.json data and checks profile_version is up to date
@@ -31,11 +32,15 @@ class Controller(polyinterface.Controller):
         self.heartbeat(0)
         self.check_params()
         self.discover()
+        self.setDriver('ST',1)
 
     def shortPoll(self):
         #LOGGER.debug('Controller.shortPoll')
         for node in self.nodes:
            self.nodes[node].update()
+        if self.firstRun:
+           self.query()
+           self.firstRun = False
            
     def longPoll(self):
         #LOGGER.debug('Controller.longPoll')
@@ -43,7 +48,7 @@ class Controller(polyinterface.Controller):
 
     def query(self,command=None):
         #LOGGER.debug('Controller.query')
-        self.check_params()
+        #self.check_params()
         for node in self.nodes:
             self.nodes[node].reportDrivers()
 
@@ -53,10 +58,7 @@ class Controller(polyinterface.Controller):
             if (key.find(':') != -1):
                 LOGGER.debug(key + " => " + val)
                 nodeaddr = key.replace(':','').lower()
-                self.addNode(UniFiNode(self, self.address, nodeaddr, key))
-                self.setDriver('ST', 0)
-        for node in self.nodes:
-            self.nodes[node].update()
+                self.addNode(UniFiNode(self, self.address, nodeaddr, key, val))
 
     def update(self):
         #LOGGER.info('UniFi Presence Controller update')
@@ -193,40 +195,34 @@ class Unifi_API(object):
 
 class UniFiNode(polyinterface.Node):
 
-    def __init__(self, controller, primary, address, name):
+    def __init__(self, controller, primary, address, macaddr, name):
         super(UniFiNode, self).__init__(controller, primary, address, name)
+        self.macaddr = macaddr
 
     def start(self):
-        self.setDriver('ST', 0)
-        pass
+        self.setOn('DON')
 
     def update(self):
-        #LOGGER.debug('UniFiNode.update')
-        
         api = Unifi_API(username=uc_user, password=uc_password, baseurl="https://" + uc_ip + ":" + uc_port)
         api.login()
-        device_list = (api.list_clients(filters={'mac': self.name}))
+        device_list = (api.list_clients(filters={'mac': self.macaddr}))
         api.logout()
-
         hostname = ''
         for dict in device_list:
-            if dict['mac'] == self.name:
+            if dict['mac'] == self.macaddr:
                 hostname = dict['hostname']
-
         if hostname != '':
             LOGGER.debug(self.name + ' is on network')
-            self.setOn('DON')
+            self.setOnNetwork('')
         else:
             LOGGER.debug(self.name + ' is off network')
-            self.setOff('DOF')
+            self.setOffNetwork('')
 
-    def shortPoll(self):
-        #LOGGER.debug('UniFiNode.shortPoll')
-        pass
+    def setOnNetwork(self, command):
+        self.setDriver('ST', 1)
 
-    def longPoll(self):
-        #LOGGER.debug('UniFiNode.longPoll')
-        pass
+    def setOffNetwork(self, command):
+        self.setDriver('ST', 0)
 
     def setOn(self, command):
         self.setDriver('ST', 1)
@@ -239,7 +235,7 @@ class UniFiNode(polyinterface.Node):
 
     hint = [1,2,3,4]
     drivers = [{'driver': 'ST', 'value': 0, 'uom': 2}]
-    id = 'unifinodeid'
+    id = 'unifi_node'
     commands = {
                     'DON': setOn, 'DOF': setOff
                 }

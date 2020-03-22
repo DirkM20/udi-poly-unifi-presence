@@ -1,12 +1,10 @@
 # controller
 ND-controller-NAME = UniFi Presence Controller
-CMD-ctl-QUERY"-NAME = Query
-CMD-ctl-DISCOVER-NAME = Re-Discover
+CMD-ctl-DISCOVER-NAME = Discover
 CMD-ctl-UPDATE_PROFILE-NAME = Update Profile
-CMD-ctl-REMOVE_NOTICES_ALL-NAME = Remove All Notices
-CMD-ctl-REMOVE_NOTICE_TEST-NAME = Remove Notice Test
-ST-ctl-ST-NAME = NodeServer Online
+CMD-ctl-REMOVE_NOTICES_ALL-NAME = Remove Notices
+ST-ctl-ST-NAME = UniFi Presence Controller Online
 
-# mynodetype
+# unify_node
 ND-unifinode-NAME = UniFi Node
-ST-unifinode-ST-NAME = Node Status
+ST-unifinode-ST-NAME = On Network
