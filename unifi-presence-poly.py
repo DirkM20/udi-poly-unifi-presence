@@ -216,7 +216,8 @@ class UniFiNode(polyinterface.Node):
         lastseen = ''
         for dict in device_list:
             if dict['mac'] == self.macaddr:
-                lastseen = str(dict['_last_seen_by_uap'])
+                lastseen = dict['_last_seen_by_uap']
+        lastseen = str(lastseen)
         LOGGER.debug('lastseen = ' + lastseen)
         
         if lastseen != '':
