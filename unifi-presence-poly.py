@@ -213,10 +213,10 @@ class UniFiNode(polyinterface.Node):
                 hostname = dict['hostname']
                 #LOGGER.debug('hostname = ' + hostname)
             if 'ap_mac' in dict:
-                LOGGER.debug(self.name + ' is on network')
+                #LOGGER.debug(self.name + ' is on network')
                 self.setOnNetwork('')
             else:
-                LOGGER.debug(self.name + ' is off network')
+                #LOGGER.debug(self.name + ' is off network')
                 self.setOffNetwork('')
 
     def setOnNetwork(self, command):
