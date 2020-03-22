@@ -211,7 +211,7 @@ class UniFiNode(polyinterface.Node):
         for dict in device_list:
             if dict['mac'] == self.macaddr:
                 hostname = dict['hostname']
-                LOGGER.debug('hostname = ' + hostname)
+                #LOGGER.debug('hostname = ' + hostname)
             if 'ap_mac' in dict:
                 LOGGER.debug(self.name + ' is on network')
                 self.setOnNetwork('')
