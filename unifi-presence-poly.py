@@ -213,19 +213,26 @@ class UniFiNode(polyinterface.Node):
                 hostname = dict['hostname']
         LOGGER.debug('hostname = ' + hostname)
         
-        lastseen = ''
-        for dict in device_list:
-            if dict['mac'] == self.macaddr:
-                lastseen = dict['_last_seen_by_uap']
-        lastseen = str(lastseen)
-        LOGGER.debug('lastseen = ' + lastseen)
-        
-        if lastseen != '':
+        if '_last_seen_by_uap' in device_list:
             LOGGER.debug(self.name + ' is on network')
             self.setOnNetwork('')
         else:
             LOGGER.debug(self.name + ' is off network')
             self.setOffNetwork('')
+
+#        lastseen = ''
+#        for dict in device_list:
+#            if dict['mac'] == self.macaddr:
+#                lastseen = dict['_last_seen_by_uap']
+#        lastseen = str(lastseen)
+#        LOGGER.debug('lastseen = ' + lastseen)
+#
+#        if lastseen != '':
+#            LOGGER.debug(self.name + ' is on network')
+#            self.setOnNetwork('')
+#        else:
+#            LOGGER.debug(self.name + ' is off network')
+#            self.setOffNetwork('')
 
     def setOnNetwork(self, command):
         self.setDriver('ST', 1)
