@@ -22,6 +22,7 @@
         <editors />
         <sts>
             <st id="ST" editor="bool" />
+            <st id="GV0" editor="strength" />
         </sts>
         <cmds>
             <sends />

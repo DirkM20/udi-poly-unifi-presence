@@ -7,4 +7,6 @@ ST-ctl-ST-NAME = UniFi Presence Controller Online
 
 # unify_node
 ND-unifinode-NAME = UniFi Node
+ND-unifinode-ICON = MotionSensor
 ST-unifinode-ST-NAME = On Network
+ST-unode-GV0-NAME = Strength
