@@ -208,17 +208,16 @@ class UniFiNode(polyinterface.Node):
         device_list = (api.list_clients(filters={'mac': self.macaddr}))
         api.logout()
         hostname = ''
-        onNetwork = False
         for dict in device_list:
             if dict['mac'] == self.macaddr:
                 hostname = dict['hostname']
+                LOGGER.debug('hostname = ' + hostname)
             if 'ap_mac' in dict:
                 LOGGER.debug(self.name + ' is on network')
                 self.setOnNetwork('')
             else:
                 LOGGER.debug(self.name + ' is off network')
                 self.setOffNetwork('')
-        LOGGER.debug('hostname = ' + hostname)
 
     def setOnNetwork(self, command):
         self.setDriver('ST', 1)
