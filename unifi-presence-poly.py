@@ -248,9 +248,13 @@ class UniFiNode(polyinterface.Node):
     def query(self,command=None):
         self.reportDrivers()
 
-    hint = [1,2,3,4]
-    drivers = [{'driver': 'ST', 'value': 0, 'uom': 2},{'driver': 'GV0', 'value': 0, 'uom': 56}]
+    drivers = [
+        {'driver': 'ST', 'value': 0, 'uom': 2},
+        {'driver': 'GV0', 'value': 0, 'uom': 56}
+    ]
+    
     id = 'unifi_node'
+    
     commands = {
                     'DON': setOn, 'DOF': setOff
                 }
