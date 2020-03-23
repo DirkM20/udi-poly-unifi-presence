@@ -1,12 +1,13 @@
 # controller
 ND-controller-NAME = UniFi Presence Controller
+ND-controller-ICON = GenericCtl
 CMD-ctl-DISCOVER-NAME = Discover
 CMD-ctl-UPDATE_PROFILE-NAME = Update Profile
 CMD-ctl-REMOVE_NOTICES_ALL-NAME = Remove Notices
 ST-ctl-ST-NAME = UniFi Presence Controller Online
 
 # unify_node
-ND-unifinode-NAME = UniFi Node
-ND-unifinode-ICON = GenericCtl
+ND-unifi_node-NAME = UniFi Node
+ND-unifi_node-ICON = Thermostat
 ST-unode-ST-NAME = On Network
 ST-unode-GV0-NAME = Strength
